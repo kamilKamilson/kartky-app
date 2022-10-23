@@ -1,0 +1,15 @@
+.button {
+  @apply text-lg font-bold rounded-xl px-8 py-4 border-4 transition-colors;
+
+  &.primary {
+    @apply bg-primary text-white border-primary hover:bg-primary-600 hover:border-primary-600;
+  }
+
+  &.secondary {
+    @apply bg-white text-primary border-primary;
+  }
+
+  &.full {
+    @apply w-full;
+  }
+}

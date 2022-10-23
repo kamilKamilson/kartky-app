@@ -1,0 +1,11 @@
+.container {
+  @apply h-screen w-full relative bg-primary flex items-center justify-center;
+
+  h1 {
+    @apply text-[300px] font-bold text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white;
+  }
+
+  p {
+    @apply relative z-10 pt-48 text-6xl font-bold;
+  }
+}
