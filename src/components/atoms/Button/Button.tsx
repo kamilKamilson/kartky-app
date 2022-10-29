@@ -12,8 +12,6 @@ const Button = ({
   children,
   ...props
 }: React.PropsWithChildren<ButtonProps>) => {
-  console.log(`${styles.button} ${$type}`);
-
   return (
     <button className={`${styles.button} ${styles[$type]} ${isFull && styles.full}`} {...props}>
       {children}
