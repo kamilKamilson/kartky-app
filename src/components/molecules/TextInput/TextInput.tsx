@@ -20,7 +20,7 @@ const TextInput = ({ name, label, type = 'text', icon, ...rest }: PropsWithoutRe
 
   const id = useId();
   return (
-    <div className="mb-9">
+    <div className="form-element">
       <Label htmlFor={id}>{label}</Label>
       <div className="relative">
         {Icon && (
