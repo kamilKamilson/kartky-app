@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Auth.module.scss';
@@ -7,7 +8,7 @@ export const Auth = () => {
   const location = useLocation();
 
   useEffect(() => {
-    location.pathname === '/auth' && navigate('/auth/login');
+    (location.pathname === '/auth' || location.pathname === '/auth/') && navigate('/auth/login');
   }, []);
 
   return (
@@ -17,7 +18,9 @@ export const Auth = () => {
           <img src="/icon-white.png" alt="logo" />
         </div>
         <div className={styles.formWrapper}>
-          <Outlet />
+          <AnimatePresence>
+            <Outlet />
+          </AnimatePresence>
         </div>
       </div>
     </div>

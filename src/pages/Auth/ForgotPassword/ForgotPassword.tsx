@@ -2,36 +2,43 @@ import Button from '@/components/atoms/Button/Button';
 import TextInput from '@/components/molecules/TextInput/TextInput';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BiUserCircle, BiLock } from 'react-icons/bi';
+import { BiUserCircle } from 'react-icons/bi';
 import z from 'zod';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 
 interface Inputs {
   email: string;
-  password: string;
 }
 
 const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8)
+  email: z.string().email()
 });
 
-const Login = () => {
+const ForgotPassword = () => {
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema)
   });
+
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}>
-      <h2>Welcome back</h2>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+      <button
+        className="text-primary flex items-center text-sm mb-3 group hover:text-primary-600"
+        onClick={() => navigate('/auth/login')}>
+        <AiOutlineArrowLeft className="text-xl mr-2 group-hover:-translate-x-1 transition-transform" />
+        Back to login page
+      </button>
+      <h2>Forgot password?</h2>
+      <p>
+        Fill email field to recieve password reset link. Then follow the information in the message.
+      </p>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-y-6 mt-16">
           <TextInput
@@ -41,18 +48,8 @@ const Login = () => {
             label="Email"
             placeholder="example@example.com"
           />
-          <TextInput
-            icon={BiLock}
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="at least 8 characters"
-          />
-          <Link to="/auth/forgot-password" className="text-sm text-gray-500">
-            Forgot password?
-          </Link>
           <div className="mt-10">
-            <Button isFull>Login</Button>
+            <Button isFull>Send reset link</Button>
           </div>
         </form>
       </FormProvider>
@@ -60,4 +57,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

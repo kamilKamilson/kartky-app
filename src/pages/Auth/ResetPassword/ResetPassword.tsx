@@ -2,22 +2,23 @@ import Button from '@/components/atoms/Button/Button';
 import TextInput from '@/components/molecules/TextInput/TextInput';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BiUserCircle, BiLock } from 'react-icons/bi';
+import { BiLock } from 'react-icons/bi';
 import z from 'zod';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import password from '@/validators/password.vaildator';
 
 interface Inputs {
-  email: string;
   password: string;
+  passwordConfirmation: string;
 }
 
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8)
-});
+const schema = z
+  .object({
+    password: z.string().min(8),
+    passwordConfirmation: z.string().min(8)
+  })
+  .superRefine(password);
 
-const Login = () => {
+const ResetPassword = () => {
   const methods = useForm<Inputs>({
     resolver: zodResolver(schema)
   });
@@ -27,20 +28,10 @@ const Login = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}>
-      <h2>Welcome back</h2>
+    <div>
+      <h2>Change your password</h2>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-y-6 mt-16">
-          <TextInput
-            icon={BiUserCircle}
-            type="email"
-            name="email"
-            label="Email"
-            placeholder="example@example.com"
-          />
           <TextInput
             icon={BiLock}
             type="password"
@@ -48,16 +39,20 @@ const Login = () => {
             label="Password"
             placeholder="at least 8 characters"
           />
-          <Link to="/auth/forgot-password" className="text-sm text-gray-500">
-            Forgot password?
-          </Link>
+          <TextInput
+            icon={BiLock}
+            type="password"
+            name="passwordConfirmation"
+            label="Password Confirmation"
+            placeholder="at least 8 characters"
+          />
           <div className="mt-10">
-            <Button isFull>Login</Button>
+            <Button isFull>Reset</Button>
           </div>
         </form>
       </FormProvider>
-    </motion.div>
+    </div>
   );
 };
 
-export default Login;
+export default ResetPassword;
