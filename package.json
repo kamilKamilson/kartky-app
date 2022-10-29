@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@types/react-helmet": "^6.1.5",
     "framer-motion": "^7.6.1",
     "postcss-easing-gradients": "^3.0.1",
